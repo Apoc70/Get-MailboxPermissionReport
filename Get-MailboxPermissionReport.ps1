@@ -7,7 +7,7 @@
 	THIS CODE IS MADE AVAILABLE AS IS, WITHOUT WARRANTY OF ANY KIND. THE ENTIRE 
 	RISK OF THE USE OR THE RESULTS FROM THE USE OF THIS CODE REMAINS WITH THE USER.
 	
-	Version 1.0, 2016-03-24
+	Version 1.1, 2016-08-30
 
     Ideas, comments and suggestions to support@granikos.eu 
 
@@ -30,6 +30,7 @@
     Revision History 
     -------------------------------------------------------------------------------- 
     1.0     Initial community release
+    1.1     Minor PowerShell fix
 	
 	.PARAMETER CsvFileName
     CSV file name 
