@@ -42,7 +42,7 @@
 #>
 Param(
     [parameter(Mandatory=$false,ValueFromPipeline=$false,HelpMessage='CSV file name')]
-        [string]$CsvFileName = "MailboxPermissions.csv"
+        [string]$CsvFileName = 'MailboxPermissions.csv'
 )
 
 $ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
@@ -50,10 +50,10 @@ $ScriptName = $MyInvocation.MyCommand.Name
 
 $OutputFile = Join-Path $ScriptDir -ChildPath $CsvFileName
 
-Write-Output $OutputFile
+Write-Verbose $OutputFile
 
 # Fetch mailboxes of type UserMailbox only
-$Mailboxes = Get-Mailbox -RecipientTypeDetails 'UserMailbox' -ResultSize 10 | Sort-Object
+$Mailboxes = Get-Mailbox -RecipientTypeDetails 'UserMailbox' -ResultSize Unlimited | Sort-Object
 
 $result = @()
 
@@ -62,7 +62,7 @@ $MailboxCount = ($Mailboxes | Measure-Object).Count
 $count = 1
 
 ForEach ($Mailbox in $Mailboxes) { 
-    $Alias = "" + $Mailbox.Name
+    $Alias = '' + $Mailbox.Name
     $DisplayName = "$($Mailbox.DisplayName) ($($Mailbox.Name))"
 
     $activity = "Working... [$($count)/$($mailboxCount)]"
@@ -70,16 +70,16 @@ ForEach ($Mailbox in $Mailboxes) {
     Write-Progress -Status $status -Activity $activity -PercentComplete (($count/$MailboxCount)*100) 
     
     # Fetch fodlers
-    $Folders = Get-MailboxFolderStatistics $Alias | % {$_.folderpath} | %{$_.replace(“/”,”\”)}
+    $Folders = Get-MailboxFolderStatistics $Alias | % {$_.folderpath} | %{$_.replace('/','\')}
 
     ForEach ($Folder in $Folders) {
-        $FolderKey = $Alias + ":" + $Folder
+        $FolderKey = $Alias + ':' + $Folder
         $Permissions = Get-MailboxFolderPermission -identity $FolderKey -ErrorAction SilentlyContinue
-        $result += $Permissions | Where-Object {$_.User -notlike "Default" -and $_.User -notlike "Anonymous" -and $_.AccessRights -notlike "None" -and $_.AccessRights -notlike "Owner" } | Select-Object @{name="Mailbox";expression={$DisplayName}}, FolderName, @{name="User";expression={$_.User -join ','}}, @{name="AccessRights";expression={$_.AccessRights -join ','}}
+        $result += $Permissions | Where-Object {$_.User -notlike 'Default' -and $_.User -notlike 'Anonymous' -and $_.AccessRights -notlike 'None' -and $_.AccessRights -notlike 'Owner' } | Select-Object @{name='Mailbox';expression={$DisplayName}}, FolderName, @{name='User';expression={$_.User -join ','}}, @{name='AccessRights';expression={$_.AccessRights -join ','}}
     }
     # Increment counter
     $count++
 }
 
 # Export to CSV
-$result | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8 -Delimiter ";" -Force
+$result | Export-Csv -Path $OutputFile -NoTypeInformation -Encoding UTF8 -Delimiter ';' -Force
