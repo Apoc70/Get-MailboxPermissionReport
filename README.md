@@ -1,33 +1,33 @@
 # Get-MailboxPermissionReport.ps1
 Dump mailbox folder permissions to CSV file
 
-##Description
+## Description
 This script exports all mailbox folder permissions for mailboxes of type "UserMailbox".
     
 The permissions are exported to a local CSV file
 
 The script is intended to run from within an active Exchange 2013 Management Shell session.
-##Inputs
-CsvFileName
+## Parameters
+### CsvFileName
 
-##Outputs
+## Outputs
 CSV report containing mailbox folder permissions.
 
-##Examples
+## Examples
 ```
 .\Get-MailboxPermissionsReport-ps1 -CsvFileName export.csv
 ```
 Export mailbox permissions to export.csv
 
 
-##TechNet Gallery
+## TechNet Gallery
 Find the script at TechNet Gallery
 * TBD
 
-##Credits
+## Credits
 Written by: Thomas Stensitzki
 
-Find me online:
+## Social 
 
 * My Blog: http://justcantgetenough.granikos.eu
 * Archived Blog: http://www.sf-tools.net/
