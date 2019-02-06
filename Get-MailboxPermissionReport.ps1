@@ -32,7 +32,10 @@
   1.0 | Initial community release
   1.1 | Minor PowerShell fix
   1.2 | Minor PowerShell changes
+  1.3 | MailboxId parameter
 	
+  .PARAMETER MailboxId
+  Mailbox filter 
   .PARAMETER CsvFileName
   CSV file name 
 
@@ -44,7 +47,9 @@
 #>
 [CmdletBinding()]
 Param(
+  [string]$MailboxId = '*',
   [string]$CsvFileName = 'MailboxPermissions.csv'
+  
 )
 
 $ScriptDir = Split-Path -Path $script:MyInvocation.MyCommand.Path
@@ -55,7 +60,8 @@ $OutputFile = Join-Path -Path $ScriptDir -ChildPath $CsvFileName
 Write-Verbose $OutputFile
 
 # Fetch mailboxes of type UserMailbox only
-$Mailboxes = Get-Mailbox -RecipientTypeDetails 'UserMailbox' -ResultSize Unlimited | Sort-Object
+$Mailboxes = Get-Mailbox -RecipientTypeDetails 'UserMailbox' -Identity $MailboxId -ResultSize Unlimited | Sort-Object
+
 
 $result = @()
 

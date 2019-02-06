@@ -12,15 +12,16 @@ The script is intended to run from within an active Exchange 2013 Management She
 
 ## Parameters
 
-### CsvFileName
+### MailboxId (optional, defaulting to "*")
+### CsvFileName (optional, defaulting to "MailboxPermissions.csv")
 
 ## Examples
 
 ``` PowerShell
-.\Get-MailboxPermissionsReport-ps1 -CsvFileName export.csv
+.\Get-MailboxPermissionsReport-ps1 -MailboxId "John*" -CsvFileName export.csv
 ```
 
-Export mailbox permissions to export.csv
+Export permissions of all mailboxes starting with "John*" to file export.csv
 
 ## Note
 
