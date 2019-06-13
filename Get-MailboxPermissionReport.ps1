@@ -70,7 +70,7 @@ $MailboxCount = ($Mailboxes | Measure-Object).Count
 $count = 1
 
 ForEach ($Mailbox in $Mailboxes) { 
-    $Alias = '' + $Mailbox.Name
+    $Alias = '' + $Mailbox.Alias #Use Alias property instead of name to ensure 'uniqueness' passed on to Get-MailboxFolderStatistics
     $DisplayName = ('{0} ({1})' -f $Mailbox.DisplayName, $Mailbox.Name)
 
     $activity = ('Working... [{0}/{1}]' -f $count, $mailboxCount)
