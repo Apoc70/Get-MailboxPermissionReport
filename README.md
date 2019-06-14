@@ -12,8 +12,13 @@ The script is intended to run from within an active Exchange 2013 Management She
 
 ## Parameters
 
-### MailboxId (optional, defaulting to "*")
-### CsvFileName (optional, defaulting to "MailboxPermissions.csv")
+### MailboxId
+
+The mailbox id for filtering mailboxes, default *
+
+### CsvFileName
+
+The file name for the export CSV file, default MailboxPermissions.csv
 
 ## Examples
 
@@ -32,7 +37,7 @@ RISK OF THE USE OR THE RESULTS FROM THE USE OF THIS CODE REMAINS WITH THE USER.
 
 Find the script at TechNet Gallery
 
-* TBD
+* [https://gallery.technet.microsoft.com/Export-all-user-mailbox-155a33de](https://gallery.technet.microsoft.com/Export-all-user-mailbox-155a33de)
 
 ## Credits
 
