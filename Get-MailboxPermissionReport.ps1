@@ -83,7 +83,7 @@ ForEach ($Mailbox in $Mailboxes) {
   Write-Progress -Status $status -Activity $activity -PercentComplete (($count/$MailboxCount)*100) 
     
   # Fetch folders
-  $Folders = Get-MailboxFolderStatistics $Alias | ForEach-Object {$_.folderpath} | ForEach-Object{$_.replace('/','\')}
+  $Folders = Get-MailboxFolderStatistics $Alias | ForEach-Object {$_.folderpath} | ForEach-Object{$_.replace('/Top of Information Store','\')} | ForEach-Object{$_.replace('/','\')}
 
   ForEach ($Folder in $Folders) {
   
