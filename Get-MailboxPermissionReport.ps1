@@ -83,7 +83,8 @@ ForEach ($Mailbox in $Mailboxes) {
   Write-Progress -Status $status -Activity $activity -PercentComplete (($count/$MailboxCount)*100) 
     
   # Fetch folders
-  $Folders = Get-MailboxFolderStatistics $Alias | ForEach-Object {$_.folderpath} | ForEach-Object{$_.replace('/Top of Information Store','\')} | ForEach-Object{$_.replace('/','\')}
+  $Folders = @('\')
+  $Folders += Get-MailboxFolderStatistics $Alias | Select-Object -Skip 1 | ForEach-Object {$_.folderpath} | ForEach-Object{$_.replace('/','\')}
 
   ForEach ($Folder in $Folders) {
   
@@ -94,7 +95,7 @@ ForEach ($Mailbox in $Mailboxes) {
     $Permissions = Get-MailboxFolderPermission -Identity $FolderKey -ErrorAction SilentlyContinue
     
     # store results in variable
-    $result += $Permissions | Where-Object {$_.User -notlike 'Default' -and $_.User -notlike 'Anonymous' -and $_.AccessRights -notlike 'None' -and $_.AccessRights -notlike 'Owner' } | Select-Object -Property @{name='Mailbox';expression={$DisplayName}}, FolderName, @{name='User';expression={$_.User -join ','}}, @{name='AccessRights';expression={$_.AccessRights -join ','}}
+    $result += $Permissions | Where-Object {$_.User -notlike 'Default' -and $_.User -notlike 'Anonymous' -and $_.AccessRights -notlike 'None' -and $_.AccessRights -notlike 'Owner' } | Select-Object -Property @{name='Mailbox';expression={$DisplayName}}, FolderName, @{name='Identity';expression={$Folder}}, @{name='User';expression={$_.User -join ','}}, @{name='AccessRights';expression={$_.AccessRights -join ','}}
   }
     
   # Increment counter
